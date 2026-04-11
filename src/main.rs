@@ -8,14 +8,15 @@ fn main() {
     let mut sum: i32 = 0;
     //take command line arguments
     let args: Vec<String> = env::args().collect();
-    if args[1] == "-h" {
-        println!("Syntax is dice <no> <sides>");
-        return;
-    }
     if args.len() < 2 {
         println!("Invalid input. Use -h for help.");
         return;
     }
+    if args[1] == "-h" {
+        println!("Syntax is dice <no> <sides>");
+        return;
+    }
+
     let no_of_dice: u32 = match args[1].parse(){
         Ok(n)  => n,
         Err(_) => {
