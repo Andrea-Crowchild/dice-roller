@@ -1,42 +1,50 @@
-use std::env;
-use rand::Rng;
+#![allow(unused)]
 
+use std::env;
+use dice::{Dice, Config};
+
+mod dice;
 
 
 fn main() {
-    // initialize sum variable to 0 
-    let mut sum: i32 = 0;
-    //take command line arguments
+    let config = match parse_args() {
+        Ok(n) => n,
+        Err(e) => {
+            println!("{}", e);
+            return;
+        },
+    };
+    let dice = Dice::new(config.number, config.sides);
+    dice.roll();
+
+}
+
+fn parse_args() -> Result<Config, String> {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        println!("Invalid input. Use -h for help.");
-        return;
+        return Err(String::from("Invalid arguments, try dice -h for help!"));
     }
     if args[1] == "-h" {
-        println!("Syntax is dice <no> <sides>");
-        return;
+        return Err(String::from("Syntax is dice <no> <sides> where no is the number of dice and sides is the number of sides."));
+    }
+    if args.len() < 3 {
+        return Err(String::from("Invalid arguments, try dice -h for help!"));
     }
 
-    let no_of_dice: u32 = match args[1].parse(){
-        Ok(n)  => n,
-        Err(_) => {
-            println!("Invalid input. Use -h for help.");
-            return;
-        }
-    };
-    let sides: u32 = match args[2].parse(){
+    let number = match args[1].parse() {
         Ok(n) => n,
-        Err(_) => {
-            println!("Invalid input. Use -h for help.");
-            return;
-        }
+        Err(_) => return Err(String::from("Invalid number of dice!")),
     };
-    // rolling logic
-    for _i in 0..no_of_dice{
-        let result = rand::thread_rng().gen_range(1..=sides);
-        sum += result as i32;
-        println!("{}", result);
-    }
-    println!("Total: {}", sum);
 
+    let sides = match args[2].parse() {
+        Ok(n) => n,
+        Err(_) => return Err(String::from("Invalid number of sides!")),
+    };
+
+    Ok(Config{
+        number,
+        sides,
+        test_mode: false,
+        verbose: false,
+    })
 }
