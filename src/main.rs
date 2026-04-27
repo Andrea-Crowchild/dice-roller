@@ -14,21 +14,30 @@ fn main() {
             return;
         },
     };
-    let dice = Dice::new(config.number, config.sides);
+    let dice = Dice::new(config.number, config.sides, config.modifier);
     dice.roll();
 
 }
 
 fn parse_args() -> Result<Config, String> {
     let args: Vec<String> = env::args().collect();
+    let modifier;
     if args.len() < 2 {
         return Err(String::from("Invalid arguments, try dice -h for help!"));
     }
     if args[1] == "-h" {
-        return Err(String::from("Syntax is dice <no> <sides> where no is the number of dice and sides is the number of sides."));
+        return Err(String::from("Syntax is dice <no> <sides> <modifier> where no is the number of dice and sides is the number of sides. Modifier is optional."));
     }
     if args.len() < 3 {
         return Err(String::from("Invalid arguments, try dice -h for help!"));
+    }
+    if args.len() > 3 {
+        modifier = match args[3].parse() {
+            Ok(n) => n,
+            Err(_) => 0,
+        }
+    } else {
+        modifier = 0;
     }
 
     let number = match args[1].parse() {
@@ -44,6 +53,7 @@ fn parse_args() -> Result<Config, String> {
     Ok(Config{
         number,
         sides,
+        modifier,
         test_mode: false,
         verbose: false,
     })
