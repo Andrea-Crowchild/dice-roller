@@ -26,8 +26,9 @@ impl Dice {
 
     pub fn roll(&self){
         let mut sum: u32 = 0; 
+        let mut random = rand::thread_rng();
         for _i in 0..self.number{
-            let result = rand::thread_rng().gen_range(1..=self.sides);
+            let result = random.gen_range(1..=self.sides);
             sum += result;
             println!("{}", result);
         }
