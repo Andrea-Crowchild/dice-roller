@@ -16,7 +16,6 @@ pub struct Config {
     pub sides: u32,
     pub modifier: i32,
     pub test_mode: bool,
-    pub verbose: bool,
 }
 
 

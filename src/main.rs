@@ -74,6 +74,5 @@ fn parse_args() -> Result<Config, String> {
         sides,
         modifier,
         test_mode,
-        verbose: false,
     })
 }
