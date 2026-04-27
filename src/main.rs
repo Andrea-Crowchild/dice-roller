@@ -15,7 +15,11 @@ fn main() {
         },
     };
     let dice = Dice::new(config.number, config.sides, config.modifier, config.test_mode);
-    dice.roll();
+    if dice.test_mode {
+        dice.test();
+    } else {
+        dice.roll();
+    }
 
 }
 

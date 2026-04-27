@@ -1,11 +1,13 @@
 
+use std::collections::HashMap;
+
 use rand::Rng;
 
 pub struct Dice {
     number: u32,
     sides: u32,
     modifier: i32,
-    test_mode: bool,
+    pub test_mode: bool,
 }
 // test mode and verbose mode are not yet implemented and new() will
 // be designed to set a default value of false in both cases.
@@ -36,6 +38,7 @@ impl Dice {
             let result = random.gen_range(1..=self.sides);
             sum += result as i32;
             println!("{}", result);
+                        
         }
         if self.modifier != 0{
             sum += self.modifier;
@@ -45,6 +48,24 @@ impl Dice {
             println!("Test mode enabled.");
         }
     }
+    pub fn test(&self) {
+        let mut dice_hash: HashMap<u32, u32> = HashMap::new();
+        let mut random = rand::thread_rng();
+
+        for _i in 0..self.number {
+            let result = random.gen_range(1..=self.sides);
+            let mut count = dice_hash.entry(result).or_insert(0);
+            *count += 1; 
+        }
+
+        let mut output: Vec<(u32, u32)> = dice_hash.into_iter().collect();
+        output.sort_by_key(|(key, value)| *key);
+        for (key, value) in output {
+            println!("{}: {}", key, value);
+        }
+    }
+
+    
 }
 
 
