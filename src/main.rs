@@ -14,7 +14,7 @@ fn main() {
             return;
         },
     };
-    let dice = Dice::new(config.number, config.sides, config.modifier);
+    let dice = Dice::new(config.number, config.sides, config.modifier, config.test_mode);
     dice.roll();
 
 }
@@ -22,6 +22,7 @@ fn main() {
 fn parse_args() -> Result<Config, String> {
     let args: Vec<String> = env::args().collect();
     let modifier;
+    let test_mode;
     if args.len() < 2 {
         return Err(String::from("Invalid arguments, try dice -h for help!"));
     }
@@ -39,6 +40,11 @@ fn parse_args() -> Result<Config, String> {
     } else {
         modifier = 0;
     }
+    if args[3] == "--test" {
+        test_mode = true;
+    } else {
+        test_mode = false;
+    }
 
     let number = match args[1].parse() {
         Ok(n) => n,
@@ -54,7 +60,7 @@ fn parse_args() -> Result<Config, String> {
         number,
         sides,
         modifier,
-        test_mode: false,
+        test_mode,
         verbose: false,
     })
 }

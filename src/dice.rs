@@ -5,6 +5,7 @@ pub struct Dice {
     number: u32,
     sides: u32,
     modifier: i32,
+    test_mode: bool,
 }
 // test mode and verbose mode are not yet implemented and new() will
 // be designed to set a default value of false in both cases.
@@ -19,11 +20,12 @@ pub struct Config {
 
 
 impl Dice {
-    pub fn new(number: u32, sides: u32, modifier: i32) -> Dice {
+    pub fn new(number: u32, sides: u32, modifier: i32, test_mode: bool) -> Dice {
         Dice {
             number,
             sides,
             modifier,
+            test_mode,
         }
     }
 
@@ -38,6 +40,9 @@ impl Dice {
         if self.modifier != 0{
             sum += self.modifier;
             println!("Total: {}", sum);
+        }
+        if self.test_mode {
+            println!("Test mode enabled.");
         }
     }
 }
