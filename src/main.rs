@@ -31,7 +31,10 @@ fn parse_args() -> Result<Config, String> {
         return Err(String::from("Invalid arguments, try dice -h for help!"));
     }
     if args[1] == "-h" {
-        return Err(String::from("Syntax is dice <no> <sides> <modifier> where no is the number of dice and sides is the number of sides. Modifier is optional."));
+        return Err(String::from("Syntax is \"dice <no> <sides> <modifier>\" \
+            where no is the number of dice and sides is the number of sides. \
+            Modifier is optional. \nUse \"dice <no> <sides> --test to \
+            engage test mode and calculate chi squared."));
     }
     if args.len() < 3 {
         return Err(String::from("Invalid arguments, try dice -h for help!"));

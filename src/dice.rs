@@ -50,6 +50,8 @@ impl Dice {
     }
     pub fn test(&self) {
         let mut dice_hash: HashMap<u32, u32> = HashMap::new();
+        
+        
         let mut random = rand::thread_rng();
 
         for _i in 0..self.number {
@@ -57,12 +59,25 @@ impl Dice {
             let mut count = dice_hash.entry(result).or_insert(0);
             *count += 1; 
         }
+        
 
         let mut output: Vec<(u32, u32)> = dice_hash.into_iter().collect();
         output.sort_by_key(|(key, value)| *key);
-        for (key, value) in output {
-            println!("{}: {}", key, value);
+        println!("-Roll Count-");
+        for (face, number) in &output {
+            println!("{}: {}", face, number);
         }
+
+        let mut chi_sum = 0.0; 
+        for (face, number) in output {
+            let expected = self.number as f64 / self.sides as f64;
+            //  println!("{:?}", expected);
+            let chi = ((number as f64 - expected).powi(2)) / expected;
+            chi_sum += chi;
+        }
+        println!("Chi Squared: {}", chi_sum);
+
+        
     }
 
     
