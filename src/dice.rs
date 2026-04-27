@@ -1,4 +1,3 @@
-
 use std::collections::HashMap;
 
 use rand::Rng;
@@ -18,8 +17,6 @@ pub struct Config {
     pub test_mode: bool,
 }
 
-
-
 impl Dice {
     pub fn new(number: u32, sides: u32, modifier: i32, test_mode: bool) -> Dice {
         Dice {
@@ -30,16 +27,15 @@ impl Dice {
         }
     }
 
-    pub fn roll(&self){
-        let mut sum: i32 = 0; 
+    pub fn roll(&self) {
+        let mut sum: i32 = 0;
         let mut random = rand::thread_rng();
-        for _i in 0..self.number{
+        for _i in 0..self.number {
             let result = random.gen_range(1..=self.sides);
             sum += result as i32;
             println!("{}", result);
-                        
         }
-        if self.modifier != 0{
+        if self.modifier != 0 {
             sum += self.modifier;
             println!("Total: {}", sum);
         }
@@ -49,16 +45,14 @@ impl Dice {
     }
     pub fn test(&self) {
         let mut dice_hash: HashMap<u32, u32> = HashMap::new();
-        
-        
+
         let mut random = rand::thread_rng();
 
         for _i in 0..self.number {
             let result = random.gen_range(1..=self.sides);
             let mut count = dice_hash.entry(result).or_insert(0);
-            *count += 1; 
+            *count += 1;
         }
-        
 
         let mut output: Vec<(u32, u32)> = dice_hash.into_iter().collect();
         output.sort_by_key(|(key, value)| *key);
@@ -67,7 +61,7 @@ impl Dice {
             println!("{}: {}", face, number);
         }
 
-        let mut chi_sum = 0.0; 
+        let mut chi_sum = 0.0;
         for (face, number) in output {
             let expected = self.number as f64 / self.sides as f64;
             //  println!("{:?}", expected);
@@ -75,11 +69,5 @@ impl Dice {
             chi_sum += chi;
         }
         println!("Chi Squared: {}", chi_sum);
-
-        
     }
-
-    
 }
-
-
