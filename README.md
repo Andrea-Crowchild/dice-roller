@@ -1,14 +1,25 @@
-This is just a simple dice roller I'm writing for myself. 
-Syntax is "dice <no> <sides> <modifier>" where <no> is the number of dice and
-<sides> is the number of sides, the optional <modifier> will add to the rolled dice and
-present a total. Use "dice -h" to print the help dialogue.
-Use "dice <no> <sides> --test" to engage test mode. Test mode will calculate chi-squared
-for the rolled dice. 
+dice
 
- 
-Example:
-dice 1 20
-dice 5 6 +3
-dice 1000 6 --test
-Am going to be adding features like modifiers later. 
+A personal command line dice roller written in Rust, designed for TTRPG use.
+
+Usage:
+dice <no> <sides> [modifier]
+dice <no> <sides> --test
+	<no> -- number of dice to roll
+	<sides> -- number of sides on each die
+	[modifier] -- optional, if present dice will be totaled together with modifier
+
+Use dice -h to print help. 
+
+Examples:
+	dice 1 20
+	dice 5 6 +4
+	dice 1000 8 --test
+
+Test Mode: 
+Test mode rolls the specified dice and calculates a chi squared statistic, useful 
+for verifying the fairness of the RNG. Designed to support very large roll counts.
+
+More features in development.
+
 
