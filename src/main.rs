@@ -1,4 +1,3 @@
-#![allow(unused)]
 
 use dice::{Config, Dice};
 use std::env;
