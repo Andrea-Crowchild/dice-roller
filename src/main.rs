@@ -43,15 +43,17 @@ fn parse_args() -> Result<Config, String> {
         modifier = match args[3].parse() {
             Ok(n) => n,
             Err(_) => 0,
+        };
+        if args[3] == "--test" {
+            test_mode = true;
+        } else {
+            test_mode = false;
         }
     } else {
         modifier = 0;
-    }
-    if args[3] == "--test" {
-        test_mode = true;
-    } else {
         test_mode = false;
     }
+    
 
     let number = match args[1].parse() {
         Ok(n) => n,
