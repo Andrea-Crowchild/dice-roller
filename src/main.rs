@@ -27,6 +27,8 @@ fn parse_args() -> Result<Config, String> {
     let args: Vec<String> = env::args().collect();
     let modifier;
     let test_mode;
+
+    // this makes sure there are at least two arguments
     if args.len() < 2 {
         return Err(String::from("Invalid arguments, try dice -h for help!"));
     }
@@ -39,6 +41,8 @@ fn parse_args() -> Result<Config, String> {
     if args.len() < 3 {
         return Err(String::from("Invalid arguments, try dice -h for help!"));
     }
+    // it's necessary to make sure args[3] exists prior to testing
+    // it for test mode
     if args.len() > 3 {
         modifier = match args[3].parse() {
             Ok(n) => n,
