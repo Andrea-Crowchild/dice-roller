@@ -50,19 +50,19 @@ impl Dice {
 
         for _i in 0..self.number {
             let result = random.gen_range(1..=self.sides);
-            let mut count = dice_hash.entry(result).or_insert(0);
+            let count = dice_hash.entry(result).or_insert(0);
             *count += 1;
         }
 
         let mut output: Vec<(u32, u32)> = dice_hash.into_iter().collect();
-        output.sort_by_key(|(key, value)| *key);
+        output.sort_by_key(|(key, _value)| *key);
         println!("-Roll Count-");
         for (face, number) in &output {
             println!("{}: {}", face, number);
         }
 
         let mut chi_sum = 0.0;
-        for (face, number) in output {
+        for (_face, number) in output {
             let expected = self.number as f64 / self.sides as f64;
             //  println!("{:?}", expected);
             let chi = ((number as f64 - expected).powi(2)) / expected;
