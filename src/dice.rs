@@ -8,8 +8,6 @@ pub struct Dice {
     modifier: i32,
     pub test_mode: bool,
 }
-// test mode and verbose mode are not yet implemented and new() will
-// be designed to set a default value of false in both cases.
 pub struct Config {
     pub number: u32,
     pub sides: u32,
