@@ -37,9 +37,7 @@ impl Dice {
             sum += self.modifier;
             println!("Total: {}", sum);
         }
-        if self.test_mode {
-            println!("Test mode enabled.");
-        }
+        
     }
     pub fn test(&self) {
         let mut dice_hash: HashMap<u32, u32> = HashMap::new();

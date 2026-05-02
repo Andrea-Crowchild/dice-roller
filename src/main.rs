@@ -47,6 +47,8 @@ fn parse_args() -> Result<Config, String> {
     }
     // it's necessary to make sure args[3] exists prior to testing
     // it for test mode
+    // modifiers are disallowed for test  mode to preserve statistical 
+    // integrity
     if args.len() > 3 {
         modifier =  args[3].parse().unwrap_or(0);
         test_mode = args[3] == "--test";
