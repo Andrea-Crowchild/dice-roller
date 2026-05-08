@@ -6,7 +6,7 @@ pub struct Dice {
     number: u32,
     sides: u32,
     modifier: i32,
-    pub test_mode: bool,
+    test_mode: bool,
 }
 pub struct Config {
     pub number: u32,
@@ -37,7 +37,6 @@ impl Dice {
             sum += self.modifier;
             println!("Total: {}", sum);
         }
-        
     }
     pub fn test(&self) {
         let mut dice_hash: HashMap<u32, u32> = HashMap::new();
@@ -65,5 +64,9 @@ impl Dice {
             chi_sum += chi;
         }
         println!("Chi Squared: {}", chi_sum);
+    }
+
+    pub fn get_test_mode(&self) -> bool {
+        self.test_mode
     }
 }

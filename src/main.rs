@@ -1,10 +1,10 @@
-
 use dice::{Config, Dice};
 use std::env;
 
 mod dice;
 
 fn main() {
+    // TODO: Replace parse_args() with a clap implementation
     let config = match parse_args() {
         Ok(n) => n,
         Err(e) => {
@@ -18,7 +18,8 @@ fn main() {
         config.modifier,
         config.test_mode,
     );
-    if dice.test_mode {
+
+    if dice.get_test_mode() {
         dice.test();
     } else {
         dice.roll();
@@ -47,10 +48,10 @@ fn parse_args() -> Result<Config, String> {
     }
     // it's necessary to make sure args[3] exists prior to testing
     // it for test mode
-    // modifiers are disallowed for test  mode to preserve statistical 
+    // modifiers are disallowed for test  mode to preserve statistical
     // integrity
     if args.len() > 3 {
-        modifier =  args[3].parse().unwrap_or(0);
+        modifier = args[3].parse().unwrap_or(0);
         test_mode = args[3] == "--test";
     } else {
         modifier = 0;
