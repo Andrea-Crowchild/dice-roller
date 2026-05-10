@@ -4,8 +4,11 @@ A personal command line dice roller written in Rust, designed for TTRPG use.
 
 Example syntax: 
 dice 1 8
+
 dice 1 20 +4
+
 dice 1000 6 --test
+
 dice --help
 
 Test Mode: 
