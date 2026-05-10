@@ -8,12 +8,6 @@ pub struct Dice {
     modifier: i32,
     test_mode: bool,
 }
-pub struct Config {
-    pub number: u32,
-    pub sides: u32,
-    pub modifier: i32,
-    pub test_mode: bool,
-}
 
 impl Dice {
     pub fn new(number: u32, sides: u32, modifier: i32, test_mode: bool) -> Dice {
