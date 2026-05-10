@@ -21,7 +21,7 @@ impl Dice {
 
     pub fn roll(&self) -> i32 {
         let mut random = rand::rng();
-        random.random_range(1..=self.sides) as i32 + self.modifier
+        random.random_range(1..=self.sides) as i32
     }
 
     pub fn roll_multiple(&self) -> i32 {
@@ -31,6 +31,7 @@ impl Dice {
             sum += result;
             println!("{}", result);
         }
+        sum += self.modifier;
         if self.modifier != 0 {
             println!("Total: {}", sum);
         }
