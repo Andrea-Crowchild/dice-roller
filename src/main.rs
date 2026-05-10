@@ -1,13 +1,12 @@
 use clap::Parser;
-use dice::Dice;
-
 mod dice;
+use dice::Dice;
 
 #[derive(Parser)]
 struct Cli {
     number: u32,
     sides: u32,
-    #[arg(short, long)]
+    #[arg(short, long, conflicts_with = "modifier")]
     test: bool,
 
     modifier: Option<i32>,
@@ -15,20 +14,12 @@ struct Cli {
 
 fn main() {
     let config = Cli::parse();
-    if config.test && config.modifier.is_some() {
-        eprintln!("Cannot use modifier and --test together");
-        std::process::exit(1);
-    }
-    let dice = Dice::new(
-        config.number,
-        config.sides,
-        config.modifier.unwrap_or(0),
-        config.test,
-    );
 
-    if dice.get_test_mode() {
+    let dice = Dice::new(config.number, config.sides, config.modifier.unwrap_or(0));
+
+    if config.test {
         dice.test();
     } else {
-        dice.roll();
+        dice.roll_multiple();
     }
 }
