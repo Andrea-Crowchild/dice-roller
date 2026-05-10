@@ -13,11 +13,11 @@ struct Cli {
 }
 
 fn main() {
-    let config = Cli::parse();
+    let cli = Cli::parse();
 
-    let dice = Dice::new(config.number, config.sides, config.modifier.unwrap_or(0));
+    let dice = Dice::new(cli.number, cli.sides, cli.modifier.unwrap_or(0));
 
-    if config.test {
+    if cli.test {
         dice.test();
     } else {
         dice.roll_multiple();
